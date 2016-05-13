@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+   <title>Map</title>
+   <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="http://d3js.org/topojson.v1.min.js"></script>
+   <script src = "http://datamaps.github.io/scripts/datamaps.all.min.js?v=1"> </script>
+ </head>
+ <body>
+   <div id="chart" style="position: relative; width: 80%; max-height: 450px;"></div>
+   </div>
+   <script type="text/javascript">
+    // -------------Read Fake Data-------------------//
+    d3.csv("../Fake_Data.csv", function(d) {
+      return d;
+    }, function(error, rows) {
+      console.log(rows);
+    });
+
+
+    var arcs = new Datamap({
+        scope: 'usa',
+        element: document.getElementById('chart'),
+        geographyConfig: {
+          popupOnHover: false,
+          highlightOnHover: false
+        },
+        projection: 'mercator',
+        height: 500,
+        fills: {
+          defaultFill: "green",
+          Sid: 'blue',
+          Yann: 'orange'
+        },
+          data: {
+            'Sid' : {fillKey:'win'},
+            'Yann' : {fillKey:'win'}
+          }
+      });
+
+      arcs.arc([
+        //{
+        //  origin:'Sid',
+        //  destination:'Yann'
+        //},
+        {
+          origin:{
+            latitude: 37.774929,
+            longitude: -122.419416
+          },
+          destination: {
+            latitude:41.878114,
+            longitude:-87.629798
+          }
+        }
+      ], {strokeWidth: 1, arcSharpness: 1.4});
+
+      arcs.bubbles([
+        {
+          name: "Yann",
+          radius:5,
+          fillKey:'Yann',
+          latitude: 37.774929,
+          longitude: -122.419416,
+          label:"Yann"
+        },
+        {
+          name: "Sid",
+          radius:5,
+          fillKey:'Sid',
+          latitude:41.878114,
+          longitude:-87.629798,
+          label:"Sid"
+        }
+      ]);
+
+
+
+   </script>
+ </body>
+</html>
